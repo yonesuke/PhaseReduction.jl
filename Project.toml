@@ -1,0 +1,7 @@
+name = "PhaseReduction"
+uuid = "5bcf7cdd-ab0a-4b1b-9289-92f563cf23f1"
+authors = ["yonesuke <13e.e.c.13@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
