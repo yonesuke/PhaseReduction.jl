@@ -52,16 +52,11 @@ function PeriodicOrbit(sys::DiffSys; ps=(2,0.0), eps=10^(-10), transient=10^4, s
         orbits[i+1,:] = x
     end
     distance = norm(orbits[begin,:]-orbits[end,:])
-    if distance < 10^(-5)
-        @info "Periodicity checked: distance between start and end of orbit = $distance"
-        return period, ts, orbits
-    else
-        @info "retry detecting periodic orbits: distance between start and end of orbit = $distance"
-        return PeriodicOrbit(sys, ps=ps, eps=eps, transient=transient)
-    end
+    @info "Periodicity checked: distance between start and end of orbit = $distance"
+    return period, ts, orbits
 end
 
-PeriodicOrbit(sys::SpecialDiffSys; steps=2^12) = PeriodicOrbit(DiffSys(sys), steps=steps)
+PeriodicOrbit(sys::SpecialDiffSys; ps=(2,0.0), eps=10^(-10), transient=10^4, steps = 2^12) = PeriodicOrbit(DiffSys(sys), ps=ps, eps=eps, transient=transient, steps = steps)
 
 function PhaseSensitivity(sys::SpecialDiffSys, period::Float64, periodic_orbits::AbstractArray; eps=10^(-12))
     func(x) = vec_field(sys, x)
